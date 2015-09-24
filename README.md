@@ -2,7 +2,8 @@ This is an exploit for libstagefright used in the Nintendo New3DS system Interne
 
 This exploits the "stsc" vuln with MP4 parsing. https://blog.zimperium.com/stagefright-vulnerability-details-stagefright-detector-tool-released/
 
-This requires the following repo: https://github.com/yellows8/3ds_browserhax_common See that repo for usage info as well.
+This requires the following repo: https://github.com/yellows8/3ds_browserhax_common See that repo for usage info as well.  
+All system-versions <=10.1.0-27 are supported, as of when this exploit was released.
 
 Currently the length of the URL used for accessing this hax must be less than 48 characters.
 
@@ -13,5 +14,8 @@ To bypass this issue with QR-code scanning, or to setup the browser so that it a
 * 3) Exit the browser and re-enable wifi.
 * 4) Launch the browser. By just launching the browser(with the current URL set to the mp4), the exploit will automatically trigger without any more user-input.
 
-See the following for a hosted version of this: http://yls8.mtheall.com/3dsbrowserhax.php
+See the following for a hosted version of this: http://yls8.mtheall.com/3dsbrowserhax.php  
+
+
+Wii U is also affected: all Wii U titles which use mvplayer.rpl(included with each title using it) are affected since that uses libstagefright. At the time of writing, the Internet Browser title from system-verson 5.5.0 is still affected. The author of this New3DS-browser exploit does not have any actual Wii U libstagefright exploit, at the time this New3DS-browser exploit was released.
 
