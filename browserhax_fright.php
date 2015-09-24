@@ -1,9 +1,5 @@
 <?php
 
-include_once("/home/yellows8/ninupdates/weblogging.php");
-
-$logging_dir = "/home/yellows8/ninupdates/weblogs/private";
-
 include_once("/home/yellows8/browserhax/browserhax_cfg.php");
 
 include_once("3dsbrowserhax_common.php");
@@ -11,8 +7,8 @@ include_once("3dsbrowserhax_common.php");
 if(($browserver & 0x80) == 0)
 {
 	echo "This browser is not supported.\n";
-	writeNormalLog("RESULT: 200 BROWSER NOT SUPPORTED");
-	return;
+	//error_log("browserhax_fright.php: BROWSER NOT SUPPORTED.");
+	exit;
 }
 
 $con = file_get_contents("frighthax_header.mp4");
