@@ -3,7 +3,7 @@ This is an exploit for libstagefright used in the Nintendo New3DS system Interne
 This exploits the "stsc" vuln with MP4 parsing. https://blog.zimperium.com/stagefright-vulnerability-details-stagefright-detector-tool-released/
 
 This requires the following repo: https://github.com/yellows8/3ds_browserhax_common See that repo for usage info as well.  
-All system-versions <=10.1.0-27 are supported, as of when this exploit was released.
+All system-versions <=10.1.0-27 are supported, as of when this exploit was released. System-version 10.2.0-X fixed the vuln used by this.
 
 Currently the length of the URL used for accessing this hax must be less than 48 characters.
 
