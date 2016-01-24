@@ -16,6 +16,8 @@ To bypass this issue with direct-QR-code scanning, or to setup the browser so th
 * 3) Exit the browser and re-enable wifi.
 * 4) Launch the browser. By just launching the browser(with the current URL set to the mp4), the exploit will automatically trigger without any more user-input.
 
+Note that using the QR-code on the site linked below works fine, it's just that if you use a QR-code containing an URL directly for the exploit page(http-redirects included), the above issues occur.
+
 See the following for a hosted version of this: http://yls8.mtheall.com/3dsbrowserhax.php  
 
 
