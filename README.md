@@ -5,7 +5,7 @@ The stsc exploit is based on a PoC from here: https://blog.zimperium.com/stagefr
 This requires the following repo: https://github.com/yellows8/3ds_browserhax_common See that repo for usage info as well.  
 
 * stsc("browserhax_fright.php"): All system-versions <=10.1.0-27 are supported. System-version 10.2.0-28 fixed the vuln used by this. This was originally implemented on August 6-7, 2015.
-* tx3g("browserhax_fright_tx3g.php"): All system-versions <=10.4.0-29 are supported. From the .php: "This tx3g version was originally implemented using system-version v10.2, on November 3, 2015. The PoC mp4 this is based on is from roughly October 24, 2015."
+* tx3g("browserhax_fright_tx3g.php"): All system-versions <=10.5.0-30 are supported. From the .php: "This tx3g version was originally implemented using system-version v10.2, on November 3, 2015. The PoC mp4 this is based on is from roughly October 24, 2015."
 
 Currently the length of the URL used for accessing this hax must be less than 48 characters.
 
